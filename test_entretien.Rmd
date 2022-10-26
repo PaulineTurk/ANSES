@@ -1,0 +1,21 @@
+---
+title: "test_entretien"
+author: "pauline"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Importation des bibliothèques
+```{r Importation des bibliothèques, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+```
+
