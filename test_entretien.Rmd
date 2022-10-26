@@ -17,5 +17,57 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
+library(stringr)
 ```
+
+
+```{r}
+library(readxl)
+Diffusion_Données_Mesures_CNEP <- read_excel("~/Documents/Bioinfo/ANSES/Diffusion_Données_Mesures_CNEP.xlsx", 
+    sheet = "Concentrations mesurées")
+#View(Diffusion_Données_Mesures_CNEP)
+```
+
+```{r}
+df_CNEP = data.frame(Diffusion_Données_Mesures_CNEP)
+```
+
+```{r Add N}
+df_CNEP = df_CNEP %>%
+   group_by(substance) %>%
+   mutate(N = n())
+```
+
+```{r}
+df_CNEP_graph_1 = df_CNEP %>% 
+  select(10, 14, 21)
+```
+
+```{r}
+df_CNEP_graph_1$substance = gsub(r"{\s*\([^\)]+\)}","",as.character(df_CNEP_graph_1$substance))
+df_CNEP_graph_1$substance = gsub(r"{total}","",as.character(df_CNEP_graph_1$substance))
+```
+
+
+
+```{r message=FALSE, warning=FALSE}
+#options(repr.plot.width=25, repr.plot.height=8)
+
+plot_1 = ggplot() + 
+    geom_bar(data = df_CNEP_graph_1,
+             aes(x = factor(substance),fill = quantification),
+             position = "fill") +
+  #geom_text(aes(label = df_CNEP_graph_1$N), vjust = 1)+
+  labs(title = "Bilan analytique des échantillon de la campagne (substance quantifiées au moins une fois)") +
+  scale_y_continuous("Pourcentage d'échantillons analysés")+ 
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+ #
+ # theme(plot.title = element_text(hjust = -0.75, vjust=2.12)) +
+  theme(legend.position = "bottom")
+  #scale_x_discrete(label=function(x) abbreviate(x, minlength=7))+
+  
+
+ggsave(plot_1, filename = 'graphe_1.png') # , width = 20, height = 15
+```
+
+
 
