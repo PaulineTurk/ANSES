@@ -69,7 +69,7 @@ plot_1
 ```
 
 ```{r}
-ggsave(plot_1, filename = 'graphe_1.png') # , width = 20, height = 15
+ggsave(plot_1, filename = 'graphe_1.png', width = 20, height = 15)
 ```
 
 
