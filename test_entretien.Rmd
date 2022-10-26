@@ -65,9 +65,11 @@ plot_1 = ggplot() +
   theme(legend.position = "bottom")
   #scale_x_discrete(label=function(x) abbreviate(x, minlength=7))+
   
-
-ggsave(plot_1, filename = 'graphe_1.png') # , width = 20, height = 15
+plot_1
 ```
 
+```{r}
+ggsave(plot_1, filename = 'graphe_1.png') # , width = 20, height = 15
+```
 
 
